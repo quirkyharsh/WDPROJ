@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoDrive - Buy | Sell | Rent Cars</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f9f9f9;
+}
+
+/* HEADER */
+
+header{
+background:#111;
+color:white;
+padding:15px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+color:#ff3c00;
+}
+
+nav ul{
+list-style:none;
+display:flex;
+}
+
+nav ul li{
+margin-left:20px;
+}
+
+nav ul li a{
+color:white;
+text-decoration:none;
+}
+
+nav ul li a:hover{
+color:#ff3c00;
+}
+
+.menu-toggle{
+display:none;
+font-size:28px;
+cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+height:85vh;
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url('https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1600&q=80');
+background-size:cover;
+background-position:center;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:50px;
+}
+
+.hero p{
+margin:15px 0;
+}
+
+.hero button{
+padding:12px 25px;
+border:none;
+background:#ff3c00;
+color:white;
+cursor:pointer;
+}
+
+/* SECTION */
+
+section{
+padding:60px 8%;
+}
+
+h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+/* FILTER */
+
+.filters{
+text-align:center;
+margin-bottom:30px;
+}
+
+.filters button{
+padding:8px 15px;
+margin:5px;
+border:none;
+background:#111;
+color:white;
+cursor:pointer;
+}
+
+.filters button.active,
+.filters button:hover{
+background:#ff3c00;
+}
+
+/* CAR GRID */
+
+.car-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+.car-card{
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.car-card:hover{
+transform:translateY(-5px);
+}
+
+.car-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.car-info{
+padding:15px;
+}
+
+.price{
+color:#ff3c00;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.car-info button{
+padding:10px;
+border:none;
+background:#ff3c00;
+color:white;
+cursor:pointer;
+width:100%;
+}
+
+/* CONTACT */
+
+.contact form{
+max-width:400px;
+margin:auto;
+display:flex;
+flex-direction:column;
+}
+
+.contact input,
+.contact textarea{
+padding:10px;
+margin-bottom:15px;
+}
+
+.contact button{
+background:#ff3c00;
+color:white;
+border:none;
+padding:10px;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+/* MODAL */
+
+.modal{
+display:none;
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.modal-content{
+background:white;
+padding:25px;
+width:90%;
+max-width:400px;
+border-radius:10px;
+animation:popup 0.3s ease;
+}
+
+@keyframes popup{
+from{
+transform:scale(0.7);
+}
+to{
+transform:scale(1);
+}
+}
+
+.modal-content input,
+.modal-content textarea{
+width:100%;
+padding:10px;
+margin:8px 0;
+}
+
+.modal-content button{
+width:100%;
+padding:12px;
+background:#ff3c00;
+color:white;
+border:none;
+}
+
+.close{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+nav ul{
+position:absolute;
+top:60px;
+left:0;
+width:100%;
+background:#111;
+flex-direction:column;
+display:none;
+text-align:center;
+}
+
+nav ul.active{
+display:block;
+}
+
+nav ul li{
+margin:15px 0;
+}
+
+.menu-toggle{
+display:block;
+}
+
+.hero h1{
+font-size:30px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">AutoDrive</div>
+
+<div class="menu-toggle" id="menu-toggle">☰</div>
+
+<nav>
+<ul id="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#cars">Cars</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div>
+
+<h1>Find Your Dream Car</h1>
+
+<p>Buy, Sell or Rent Premium Cars at Best Prices</p>
+
+<button onclick="scrollToCars()">Browse Cars</button>
+
+</div>
+
+</section>
+
+<!-- CARS -->
+
+<section id="cars">
+
+<h2>Available Cars</h2>
+
+<div class="filters">
+
+<button class="active" onclick="filterCars(event,'all')">
+All
+</button>
+
+<button onclick="filterCars(event,'buy')">
+Buy
+</button>
+
+<button onclick="filterCars(event,'rent')">
+Rent
+</button>
+
+</div>
+
+<div class="car-grid">
+
+<!-- BUY -->
+
+<div class="car-card" data-type="buy">
+<img src="https://th.bing.com/th/id/OIP.HNg45YTNMwHutyHJyLf6aAHaDs">
+<div class="car-info">
+<h3>Audi A8</h3>
+<div class="price">$42,000</div>
+<button onclick="openModal('buy','Audi A8')">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="buy">
+<img src="https://th.bing.com/th/id/OIP.juFaywLlKi3nd-33pOgUPAHaE8">
+<div class="car-info">
+<h3>Mercedes C-Class</h3>
+<div class="price">$30,000</div>
+<button onclick="openModal('buy','Mercedes C-Class')">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="buy">
+<img src="https://th.bing.com/th/id/OIP.jIEOmTrTPaYZf0ToP-yuGQHaE8">
+<div class="car-info">
+<h3>BMW X5</h3>
+<div class="price">$45,000</div>
+<button onclick="openModal('buy','BMW X5')">
+Buy Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="buy">
+<img src="https://th.bing.com/th/id/OIP.J2ya5DXtx2By63LDLAMvfwHaEK">
+<div class="car-info">
+<h3>Ford Mustang</h3>
+<div class="price">$38,500</div>
+<button onclick="openModal('buy','Ford Mustang')">
+Buy Now
+</button>
+</div>
+</div>
+
+<!-- RENT -->
+
+<div class="car-card" data-type="rent">
+<img src="https://th.bing.com/th/id/OIP.SgNp2tCsehg3Iv6QMHxrygHaEK">
+<div class="car-info">
+<h3>Lamborghini Huracan</h3>
+<div class="price">$500/day</div>
+<button onclick="openModal('rent','Lamborghini Huracan')">
+Rent Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="rent">
+<img src="https://th.bing.com/th/id/OIP.2OZ1upBWbMYf_Llb-dmqtQHaE7">
+<div class="car-info">
+<h3>Toyota Corolla</h3>
+<div class="price">$65/day</div>
+<button onclick="openModal('rent','Toyota Corolla')">
+Rent Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="rent">
+<img src="https://th.bing.com/th/id/OIP.j8K7q670TfVZT1dwKF4tAQHaEK">
+<div class="car-info">
+<h3>Range Rover Sport</h3>
+<div class="price">$220/day</div>
+<button onclick="openModal('rent','Range Rover Sport')">
+Rent Now
+</button>
+</div>
+</div>
+
+<div class="car-card" data-type="rent">
+<img src="https://th.bing.com/th/id/OIP.SgNp2tCsehg3Iv6QMHxrygHaEK">
+<div class="car-info">
+<h3>Porsche 911</h3>
+<div class="price">$450/day</div>
+<button onclick="openModal('rent','Porsche 911')">
+Rent Now
+</button>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+<h2>Contact Us</h2>
+
+<form onsubmit="submitContact(event)">
+
+<input type="text" placeholder="Name" required>
+
+<input type="email" placeholder="Email" required>
+
+<textarea placeholder="Message" required></textarea>
+
+<button>Send Message</button>
+
+</form>
+
+</section>
+
+<footer>
+© 2026 AutoDrive | All Rights Reserved
+</footer>
+
+<!-- MODAL FORM -->
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<span class="close" onclick="closeModal()">×</span>
+
+<h2 id="formTitle"></h2>
+
+<form onsubmit="submitCarForm(event)">
+
+<input type="text" placeholder="Full Name" required>
+
+<input type="email" placeholder="Email" required>
+
+<input type="tel" placeholder="Phone Number" required>
+
+<div id="daysField" style="display:none">
+
+<input type="number" placeholder="Number of Days">
+
+</div>
+
+<textarea placeholder="Address" required></textarea>
+
+<button>Submit</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+menuToggle.onclick = function(){
+    navLinks.classList.toggle("active");
+}
+
+function scrollToCars(){
+    document.getElementById("cars").scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+function filterCars(e,type){
+
+    let cards=document.querySelectorAll(".car-card");
+    let buttons=document.querySelectorAll(".filters button");
+
+    buttons.forEach(btn=>btn.classList.remove("active"));
+    e.target.classList.add("active");
+
+    cards.forEach(card=>{
+        if(type=="all"||card.dataset.type==type)
+            card.style.display="block";
+        else
+            card.style.display="none";
+    });
+}
+
+const modal=document.getElementById("modal");
+const formTitle=document.getElementById("formTitle");
+const daysField=document.getElementById("daysField");
+
+function openModal(type,car){
+
+    modal.style.display="flex";
+
+    if(type=="buy"){
+        formTitle.innerHTML="Buy Car : "+car;
+        daysField.style.display="none";
+    }
+    else{
+        formTitle.innerHTML="Rent Car : "+car;
+        daysField.style.display="block";
+    }
+}
+
+function closeModal(){
+    modal.style.display="none";
+}
+
+window.onclick=function(e){
+    if(e.target==modal)
+        closeModal();
+}
+
+function submitCarForm(e){
+    e.preventDefault();
+    alert("Request Submitted Successfully!");
+    closeModal();
+}
+
+function submitContact(e){
+    e.preventDefault();
+    alert("Message Sent!");
+}
+</script>
+
+</body>
+</html>
