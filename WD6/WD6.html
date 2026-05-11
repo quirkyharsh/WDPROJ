@@ -22,6 +22,7 @@
         .navbar a {
             color: white;
             margin: 15px;
+            text-decoration: none;
         }
 
         .heading {
@@ -37,7 +38,7 @@
             background-color: white;
             width: 320px;
             margin: 30px auto;
-            padding: 50px;
+            padding: 40px;
             border-radius: 8px;
         }
 
@@ -58,7 +59,7 @@
             padding: 10px;
             background-color: darkred;
             color: white;
-            
+            border: none;
         }
 
     </style>
@@ -85,35 +86,76 @@
 
     <div class="form-box">
 
-        <form>
+        <form onsubmit="return validateForm()">
 
             <label>Name</label>
 
-            <input type="text" placeholder="Enter your name">
+            <input type="text" id="name" placeholder="Enter your name">
 
             <label>Email</label>
 
-            <input type="email" placeholder="Enter your email">
+            <input type="email" id="email" placeholder="Enter your email">
 
             <label>Gender</label>
 
-            <select>
+            <select id="gender">
 
+                <option value="">Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
-                
 
             </select>
 
             <label>Date of Birth</label>
 
-            <input type="text" placeholder="Enter mobile number">
+            <input type="date" id="dob">
 
             <button type="submit">Book Now</button>
 
         </form>
 
     </div>
+
+    <script>
+
+        function validateForm() {
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let gender = document.getElementById("gender").value;
+            let dob = document.getElementById("dob").value;
+
+            if (name == "") {
+                alert("Please enter your name");
+                return false;
+            }
+
+            if (email == "") {
+                alert("Please enter your email");
+                return false;
+            }
+
+            if (!email.includes("@")) {
+                alert("Enter a valid email");
+                return false;
+            }
+
+            if (gender == "") {
+                alert("Please select gender");
+                return false;
+            }
+
+            if (dob == "") {
+                alert("Please enter date of birth");
+                return false;
+            }
+
+            alert("Form Submitted Successfully");
+            return true;
+
+        }
+
+    </script>
 
 </body>
 

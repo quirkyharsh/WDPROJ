@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dynamic DOM Example</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #content {
+            margin-top: 20px;
+            font-size: 18px;
+            color: blue;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Dynamic Content using DOM</h1>
+
+    <!-- Buttons -->
+
+    <button onclick="changeText()">
+        Change Text
+    </button>
+
+    <button onclick="addElement()">
+        Add Element
+    </button>
+
+    <!-- Content Area -->
+
+    <div id="content">
+        Original Content
+    </div>
+
+    <script>
+
+        // Function to change text
+
+        function changeText() {
+
+            document.getElementById("content").innerHTML = "Text changed dynamically!";
+
+        }
+
+        // Function to add new paragraph
+
+        function addElement() {
+
+            var newPara = document.createElement("p");
+
+            newPara.textContent = "New paragraph added using DOM!";
+
+            document.body.appendChild(newPara);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
