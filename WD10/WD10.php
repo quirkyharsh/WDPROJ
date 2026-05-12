@@ -2,63 +2,40 @@
 <html>
 
 <head>
-
     <title>PHP String Functions</title>
-
-    <style>
-
-        body {
-            font-family: Arial;
-            background-color: lightgray;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .box {
-            background-color: white;
-            width: 400px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px gray;
-        }
-
-        h1 {
-            color: darkblue;
-        }
-
-        p {
-            font-size: 18px;
-        }
-
-    </style>
-
 </head>
 
 <body>
 
-    <div class="box">
+    <h2>PHP String Functions</h2>
 
-        <h1>PHP String Manipulation</h1>
+    <form method="post">
 
-        <?php
+        Enter String:
+        <input type="text" name="str">
 
-            $str = "Welcome to PHP Programming";
+        <input type="submit" value="Submit">
 
-            echo "<p><b>Original String:</b> " . $str . "</p>";
+    </form>
 
-            // String Length
-            echo "<p><b>String Length:</b> " . strlen($str) . "</p>";
+    <?php
 
-            // Reverse String
-            echo "<p><b>Reverse String:</b> " . strrev($str) . "</p>";
+    if (isset($_POST['str'])) {
 
-            // Substring
-            echo "<p><b>Substring:</b> " . substr($str, 11, 3) . "</p>";
+        $str = $_POST['str'];
 
-        ?>
+        echo "<h3>Results</h3>";
 
-    </div>
+        echo "Original String: " . $str . "<br><br>";
+
+        echo "String Length: " . strlen($str) . "<br><br>";
+
+        echo "Reverse String: " . strrev($str) . "<br><br>";
+
+        echo "Substring: " . substr($str, 0, 5);
+    }
+
+    ?>
 
 </body>
 
